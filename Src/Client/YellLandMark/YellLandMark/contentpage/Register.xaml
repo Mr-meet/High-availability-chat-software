@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YellLandMark.Register">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="lableStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="DarkCyan"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView BackgroundColor="Azure">
+        
+        <StackLayout>
+            
+            <Label FontSize="50"
+               TextColor="DarkCyan"
+               FontFamily="Helvetica"
+              Margin="30"
+               HorizontalOptions="Center" 
+               VerticalOptions="Start">
+                <Label.Text>
+                    Registe
+                </Label.Text>
+            </Label>
+            
+            <Grid Margin="8" Padding="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--<Label Text="Nickname:"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       TextColor="DarkCyan"
+                       HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="Center"
+                       />-->
+                <Label Text="Nickname:"
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       Style="{StaticResource lableStyle}"/>
+
+                <Entry Placeholder="Place entry your nickname."
+                       Grid.Row="0"
+                       Grid.Column="1"
+                   Keyboard="Text"
+                   IsPassword="False"
+                       x:Name="nickName"
+                   BackgroundColor="DarkCyan"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"/>
+                
+                <Label Text="Password:"
+                       Grid.Column="0"
+                       Grid.Row="1"
+                       Style="{StaticResource lableStyle}"
+                       />
+
+                <Entry Placeholder="Place entry your password."
+                       Grid.Row="1"
+                       Grid.Column="1"
+                   Keyboard="Text"
+                   IsPassword="True"
+                       x:Name="password"
+                   BackgroundColor="DarkCyan"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"/>
+
+                <Label Text="Check password:"
+                       Style="{StaticResource lableStyle}"
+                       Grid.Column="0"
+                       Grid.Row="2"
+                       
+                       />
+
+                <Entry Placeholder="Entry your password again."
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       x:Name="checkPassword"
+                   Keyboard="Text"
+                   IsPassword="True"
+                   BackgroundColor="DarkCyan"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"/>
+
+                <Label Text="Email:"
+                       Style="{StaticResource lableStyle}"
+                       Grid.Column="0"
+                       Grid.Row="3"
+                       />
+                
+                <Entry Placeholder="Entry your email address."
+                       Grid.Row="3"
+                       Grid.Column="1"
+                   Keyboard="Text"
+                       x:Name="email"
+                   IsPassword="False"
+                   BackgroundColor="DarkCyan"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"/>
+
+                <Label Text="Birthday:"
+                      Style="{StaticResource lableStyle}"
+                       Grid.Column="0"
+                       Grid.Row="4"
+                       />
+                <DatePicker Grid.Column="1"
+                            Grid.Row="4"
+                            x:Name="birthday"
+                            BackgroundColor="DarkCyan"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"
+                            />
+
+                <Label Text="Homeland:"
+                      Style="{StaticResource lableStyle}"
+                       Grid.Column="0"
+                       Grid.Row="5"
+                       />
+                <Picker x:Name="homelandPicker" 
+                    Grid.Column="1"
+                        Grid.Row="5"
+                        BackgroundColor="DarkCyan"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"/>
+                
+                <Label Text="Career:"
+                      Style="{StaticResource lableStyle}"
+                       Grid.Column="0"
+                       Grid.Row="6"
+                       />
+                <Picker x:Name="careerPicker" 
+                    Grid.Column="1"
+                        Grid.Row="6"
+                        BackgroundColor="DarkCyan"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"/>
+                
+                
+                <Label Text="Place of residence:"
+                      Style="{StaticResource lableStyle}"
+                       Grid.Column="0"
+                       Grid.Row="7"
+                       />
+
+                <Picker x:Name="placePicker" 
+                    Grid.Column="1"
+                        Grid.Row="7"
+                        BackgroundColor="DarkCyan"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"/>
+                
+                
+                <Label Text="Gender:"
+                      Style="{StaticResource lableStyle}"
+                       Grid.Column="0"
+                       Grid.Row="8"
+                       />
+
+                <Picker x:Name="genderPicker" 
+                    Grid.Column="1"
+                        Grid.Row="8"
+                        BackgroundColor="DarkCyan"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"/>
+
+                <Label Text="Icon:"
+                      Style="{StaticResource lableStyle}"
+                       Grid.Column="0"
+                       Grid.Row="9"
+                       />
+
+                <Button x:Name="iconButton"
+                    Text="Picking a Photo from the Picture Library"
+                        Grid.Column="1"
+                        Grid.Row="9"
+                        BackgroundColor="DarkCyan"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"
+                        />
+
+                <Label Text="Image:"
+                      Style="{StaticResource lableStyle}"
+                       Grid.Column="0"
+                       Grid.Row="10"
+                       />
+                <Button x:Name="imageButton"
+                    Text="Picking a Photo from the Picture Library"
+                        Grid.Column="1"
+                        Grid.Row="10"
+                        BackgroundColor="DarkCyan"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"
+                        />
+                
+                
+                <Label Text="Homepage:"
+                      Style="{StaticResource lableStyle}"
+                       Grid.Column="0"
+                       Grid.Row="11"
+                       />
+                <Entry Placeholder="Entry your homepage address."
+                       Grid.Row="11"
+                       Grid.Column="1"
+                       x:Name="homepage"
+                   Keyboard="Text"
+                   IsPassword="False"
+                   BackgroundColor="DarkCyan"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"/>
+                
+                <Label Text="Signature of personality:"
+                      Style="{StaticResource lableStyle}"
+                       Grid.Column="0"
+                       Grid.Row="12"
+                       />
+
+                <Entry Placeholder="Entry your  signature of personality."
+                       Grid.Row="12"
+                       Grid.Column="1"
+                       x:Name="signature"
+                   Keyboard="Text"
+                   IsPassword="False"
+                   BackgroundColor="DarkCyan"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"/>
+
+            </Grid>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="I agree the user license." VerticalOptions="Center" FontSize="12"></Label>
+                <Switch VerticalOptions="Center" Toggled="liscenseSwitch_Toggled" x:Name="liscenseSwitch"></Switch>
+            </StackLayout>
+            <Grid  Margin="8" Padding="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Text="Submit" 
+                   x:Name="submitButton"
+                        IsEnabled="False"
+                    Clicked="submitButton_Clicked"
+                   BackgroundColor="DarkCyan"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"
+                        Grid.Column="0"
+                        Grid.Row="0"/>
+                <Button Text="Cancel" 
+                   x:Name="cancelButton"
+                    Clicked="cancelButton_Clicked"
+                   BackgroundColor="DarkCyan"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"
+                        Grid.Column="1"
+                        Grid.Row="0"/>
+            </Grid>
+            
+        </StackLayout>
+    </ScrollView>
+    
+</ContentPage>

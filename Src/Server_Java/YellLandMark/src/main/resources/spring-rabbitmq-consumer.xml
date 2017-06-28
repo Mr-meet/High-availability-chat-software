@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                      http://www.springframework.org/schema/rabbit
+                http://www.springframework.org/schema/rabbit/spring-rabbit-1.5.xsd">
+    <!-- 连接服务配置-->
+    <rabbit:connection-factory id="consumerConnectionFactory" addresses="139.199.35.140:5672"
+                         username="Alban" password="fj950602" publisher-confirms="true" virtual-host="/"/>
+
+
+
+     <!--queue 队列声明-->
+   <rabbit:queue id="USER_SEND_QUEUE" durable="true" auto-delete="false" exclusive="false" name="USER_SEND_QUEUE"/>
+    <rabbit:queue id="USER_RESAVE_QUEUE" durable="true" auto-delete="false" exclusive="false" name="USER_RESAVE_QUEUE"/>
+    <rabbit:queue id="COMMUNITY_PROCESS_QUEUE" durable="true" auto-delete="false" exclusive="false" name="COMMUNITY_PROCESS_QUEUE"/>
+    <rabbit:direct-exchange name="QUEUE_DIRECT" durable="true" auto-delete="false" id="QUEUE_DIRECT">
+        <rabbit:bindings>
+            <rabbit:binding queue="USER_SEND_QUEUE" />
+            <rabbit:binding queue="USER_RESAVE_QUEUE"/>
+            <rabbit:binding queue="COMMUNITY_PROCESS_QUEUE"/>
+        </rabbit:bindings>
+
+    </rabbit:direct-exchange>
+
+ 	
+    <bean id="userMessageListener" class="com.listener.UserMessageListener"></bean>
+
+      
+    <!-- queue litener  观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象   -->
+    <rabbit:listener-container connection-factory="consumerConnectionFactory" acknowledge="auto" >
+        <rabbit:listener queues="USER_SEND_QUEUE" ref="userMessageListener"/>
+
+    </rabbit:listener-container>
+</beans>

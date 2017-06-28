@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YellLandMark.CommunityPage"
+             xmlns:local="clr-namespace:YellLandMark.img"
+              xmlns:LocalImage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             Title="Community">
+  <ListView ItemsSource="{Binding ItemsGrouped}"
+            ItemTapped="Handle_ItemTapped"
+            ItemSelected="Handle_ItemSelected"
+            HasUnevenRows="true"
+            GroupShortNameBinding="{Binding Key}"
+            IsGroupingEnabled="true"
+            GroupDisplayBinding="{Binding Key}"
+            IsPullToRefreshEnabled="true"
+            CachingStrategy="RecycleElement"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            RefreshCommand="{Binding RefreshDataCommand}">
+    <ListView.Header>
+      <StackLayout Padding="10" 
+                   Orientation="Horizontal"
+                   HorizontalOptions="FillAndExpand"
+                   BackgroundColor="#dadada">
+        <Label Text="此页面还未完工，敬请期待。"
+               HorizontalTextAlignment="Center"
+               HorizontalOptions="FillAndExpand"
+               TextColor="Black"
+               FontAttributes="Bold"/>
+      </StackLayout>
+    </ListView.Header>
+    <!--Built in Cells-->
+    <ListView.ItemTemplate>
+            <DataTemplate>
+                <!--<Image Source="{Binding UserIcon}"/>-->
+                <ViewCell>
+                    <StackLayout>
+                        <Grid HeightRequest="80" BackgroundColor="Salmon">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <LocalImage:CircleImage
+                                Source="{local:ImageResouseExtension YellLandMark.img.MonkeyIcon.png}"
+                                Aspect="AspectFill"
+                                BorderThickness="1"
+                                BorderColor="Cyan"
+                                WidthRequest="150"
+                                Margin="12"
+                                Grid.Column="0"
+                                x:Name="userIconHead">
+                                <!--<LocalImage:CircleImage.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                </LocalImage:CircleImage.GestureRecognizers>-->
+                            </LocalImage:CircleImage>
+                            <StackLayout Grid.Column="1">
+                                <Label 
+                                Text="{Binding Text}"
+                                    FontSize="20"
+                                    Margin="10"
+                               />
+                                <Label Text="{Binding Detail}"
+                                   />
+                            </StackLayout>
+                        </Grid>
+
+                    </StackLayout>
+
+                    <!--<TextCell Text="{Binding Text}"
+                  Detail="{Binding Detail}"/>-->
+                </ViewCell>
+
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    
+    <!--Custom View Cells-->
+    <!--
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <StackLayout>
+            <Label Text="{Binding Text}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+            <Label Text="{Binding Detail}" 
+                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+          </StackLayout>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+    -->
+    <ListView.Footer>
+      <StackLayout Padding="8"
+                   Orientation="Horizontal"
+                   HorizontalOptions="FillAndExpand"
+                   BackgroundColor="#dadada">
+        <Label Text="底线" 
+               HorizontalTextAlignment="Center" 
+               HorizontalOptions="FillAndExpand" 
+               TextColor="Black"
+               FontAttributes="Bold"/>
+      </StackLayout>
+    </ListView.Footer>
+  </ListView>
+</ContentPage>

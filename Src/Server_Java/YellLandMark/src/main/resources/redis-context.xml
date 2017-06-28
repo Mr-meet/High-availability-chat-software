@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:cache="http://www.springframework.org/schema/cache"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/cache
+		http://www.springframework.org/schema/cache/spring-cache.xsd"
+        default-autowire="byName" default-lazy-init="false">
+
+ 	<context:property-placeholder location="classpath*:/redis.properties" />
+
+
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig"/>
+
+     <bean id="redisConnectionFactory"
+         class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+           p:hostName="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}"
+           p:poolConfig-ref="poolConfig" />
+
+
+     <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+         <property name="connectionFactory" ref="redisConnectionFactory" />
+ <!--         如果不配置Serializer，那么存储的时候智能使用String，如果用User类型存储，那么会提示错误User can't cast to String！！！
+  -->        <property name="keySerializer">
+             <bean
+                 class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+         </property>
+         <property name="valueSerializer">
+             <bean
+                 class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+         </property>
+   </bean>
+    <cache:annotation-driven cache-manager="cacheManager" />
+    <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager" >
+          <constructor-arg ref="redisTemplate"/>
+            <property name="defaultExpiration" value="360000"/>
+        <!-- 缓存名字和有效期的分隔符 -->
+        <property name="expires">
+            <map>
+                <entry key="common" value="1800"/>
+                <entry key="config#600" value="3600"/>
+                <entry key="oneDay" value="86400"/>
+                <entry key="30minute" value="1800"/>
+            </map>
+        </property>
+    </bean>
+   </beans>

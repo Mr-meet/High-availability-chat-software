@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:local="clr-namespace:YellLandMark.img"
+              xmlns:LocalImage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="YellLandMark.InfomationPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="lableStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="Salmon"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <StackLayout BackgroundColor="Salmon"
+                     Grid.Row="0"
+                     >
+            <LocalImage:CircleImage
+                    Source="{local:ImageResouseExtension YellLandMark.img.MonkeyIcon.png}"
+                    Aspect="AspectFill"
+                    BorderThickness="1"
+                    BorderColor="Cyan"
+                    WidthRequest="150"
+                    HeightRequest="150"
+                    Margin="12"
+                x:Name="circleUserIcon"
+                  />
+            <Label 
+                   Text="" 
+                   x:Name="userName"
+                   HorizontalOptions="CenterAndExpand"
+                   ></Label>
+        </StackLayout>
+        
+        <ScrollView
+            Grid.Row="1"
+            BackgroundColor="Azure">
+            <Grid Padding="25">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Gander:"
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       Style="{StaticResource lableStyle}"/>
+                <Label x:Name="ganderLable"
+                       
+                       Text=""
+                       Grid.Column="1"
+                       Grid.Row="0"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       Margin="30,0,0,0"
+                       />
+                <Label Text="Homeland:"
+                       Grid.Column="0"
+                       Grid.Row="1"
+                       Style="{StaticResource lableStyle}"/>
+                <Label x:Name="homelandLable"
+                       Text=""
+                       Grid.Column="1"
+                       Grid.Row="1"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       Margin="30,0,0,0"
+                       />
+                <Label Text="Residence:"
+                       Grid.Column="0"
+                       Grid.Row="2"
+                       Style="{StaticResource lableStyle}"/>
+                <Label x:Name="residenceLable"
+                       Text=""
+                       Grid.Column="1"
+                       Grid.Row="2"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       Margin="30,0,0,0"
+                       />
+                <Label Text="Brithday:"
+                       Grid.Column="0"
+                       Grid.Row="3"
+                       Style="{StaticResource lableStyle}"/>
+                <Label x:Name="brithdayLable"
+                       Text=""
+                       Grid.Column="1"
+                       Grid.Row="3"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       Margin="30,0,0,0"
+                       />
+                <Label Text="Career:"
+                       Grid.Column="0"
+                       Grid.Row="4"
+                       Style="{StaticResource lableStyle}"/>
+                <Label x:Name="careerLable"
+                       Text=""
+                       Grid.Column="1"
+                       Grid.Row="4"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       Margin="30,0,0,0"
+                       />
+                <Label Text="Email:"
+                       Grid.Column="0"
+                       Grid.Row="5"
+                       Style="{StaticResource lableStyle}"/>
+                <Label x:Name="emailLable"
+                       Text=""
+                       Grid.Column="1"
+                       Grid.Row="5"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       Margin="30,0,0,0"
+                       />
+                <Label Text="Homepage:"
+                       Grid.Column="0"
+                       Grid.Row="6"
+                       Style="{StaticResource lableStyle}"/>
+                <Label x:Name="homepageLable"
+                       Text=""
+                       Grid.Column="1"
+                       Grid.Row="6"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       Margin="30,0,0,0"
+                       />
+                <Label Text="Signature:"
+                       Grid.Column="0"
+                       Grid.Row="7"
+                       Style="{StaticResource lableStyle}"/>
+                <Label x:Name="signtureLable"
+                       Text=""
+                       Grid.Column="1"
+                       Grid.Row="7"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       Margin="30,0,0,0"
+                       />
+               </Grid>
+        </ScrollView>
+        <StackLayout BackgroundColor="DarkCyan" 
+                     Grid.Row="2" Orientation="Horizontal">
+            <Button x:Name="backButton"
+                Text="Back" HorizontalOptions="StartAndExpand"
+                    WidthRequest="150" Clicked="backButton_Clicked"/>
+            <Button  x:Name="okButton"
+                Text="OK" HorizontalOptions="EndAndExpand"
+                    WidthRequest="150" Clicked="okButton_Clicked"/>
+            
+        </StackLayout>
+    </Grid>
+    
+</ContentPage>

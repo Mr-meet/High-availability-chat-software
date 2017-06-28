@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+     http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-4.0.xsd"
+>
+    <import resource="redis-context.xml"/>
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="configLocation" value="classpath:hibernate.cfg.xml" />
+        <property name="packagesToScan">
+            <list>
+                <value>com.entity.*</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="nestedTransactionAllowed" value="true" />
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <!-- 使用AspectJ方式配置AOP,实现自动代理,开启暴露AOP代理到ThreadLocal支持 -->
+    <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true" />
+    <!-- 使用CGLIB实现代理, 开启暴露AOP代理到ThreadLocal支持 -->
+    <aop:config expose-proxy="true" proxy-target-class="true" />
+    <!-- 配置事务传播特性 -->
+    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="del*" propagation="REQUIRED" />
+            <tx:method name="mod*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="register" propagation="REQUIRED" />
+            <tx:method name="trans*" propagation="REQUIRED" />
+            <tx:method name="nested*" propagation="NESTED" />
+            <tx:method name="requires*" propagation="REQUIRES_NEW" />
+            <tx:method name="get*" propagation="REQUIRED" />
+            <tx:method name="set*" propagation="REQUIRED" />
+            <tx:method name="alarm*" propagation="REQUIRED" />
+            <tx:method name="support*" propagation="SUPPORTS" />
+            <tx:method name="*" propagation="NEVER" />
+        </tx:attributes>
+    </tx:advice>
+    <aop:aspectj-autoproxy />
+    <!-- 配置哪些类的哪些方法参与事务 -->
+    <aop:config>
+        <aop:advisor pointcut="execution(* com.service.*.*(..))" advice-ref="transactionAdvice"  />
+    </aop:config>
+
+
+    <context:annotation-config />
+    <!-- spring scan范围 -->
+
+    <context:component-scan base-package="com.*" />
+
+    <task:executor id="executor" pool-size="5" />
+    <task:scheduler id="scheduler" pool-size="10" />
+    <task:annotation-driven executor="executor" scheduler="scheduler" />
+    <import resource="spring-rabbitmq-producer.xml"/>
+    <import resource="spring-rabbitmq-consumer.xml"/>
+</beans>

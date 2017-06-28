@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YellLandMark.pages.PageBlankDetail"
+             Title="YellLandMark"
+             >
+  <StackLayout Padding="10">
+        <Label Text="这是一个详细页面。 要获得每个平台上的'三重'线图标，在每个平台上添加一个图标，并使用引用它的图标更新'主'页面。"/>
+  </StackLayout>
+</ContentPage>

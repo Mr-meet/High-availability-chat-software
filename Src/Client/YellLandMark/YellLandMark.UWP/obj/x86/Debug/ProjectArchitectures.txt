@@ -1,0 +1,2 @@
+C:\Users\mrfj\Desktop\Alban's Graduation Project\ProjectSourse\ClientCSharp\YellLandMark\YellLandMark\YellLandMark.UWP\YellLandMark.UWP.csproj;x86
+C:\Users\mrfj\Desktop\Alban's Graduation Project\ProjectSourse\ClientCSharp\YellLandMark\YellLandMark\YellLandMark\YellLandMark.csproj;neutral

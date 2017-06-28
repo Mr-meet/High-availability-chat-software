@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:YellLandMark.img"
+              xmlns:LocalImage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="YellLandMark.Loading"
+             BackgroundColor="AliceBlue">
+
+    <ContentPage.Content>
+        <ContentView 
+            BackgroundColor="AliceBlue"
+            WidthRequest="280"
+            HeightRequest="500"
+            VerticalOptions = "Center"
+            HorizontalOptions = "Center"
+            
+            >
+            <StackLayout
+                VerticalOptions="Start"
+                    HorizontalOptions = "End">
+                
+                <LocalImage:CircleImage
+                    Source="{local:ImageResouseExtension YellLandMark.img.MonkeyIcon.png}"
+                    Aspect="AspectFill"
+                    BorderThickness="1"
+                    BorderColor="Cyan"
+                    WidthRequest="150"
+                    HeightRequest="150"
+                    Margin="15"
+                  />
+                
+                <Label Text = "YellLandMark"                    
+                     TextColor ="Red"                
+                      FontSize = "25"
+                       FontAttributes="Bold"
+                    VerticalOptions = "CenterAndExpand"                    
+                    HorizontalOptions = "CenterAndExpand"/>
+                
+                <Entry Placeholder="Place entry your account" 
+                   Keyboard="Numeric"
+                       x:Name="accountEntry"
+                   Margin="10"/>
+                
+                <Entry Placeholder="Place entry your password"
+                   Keyboard="Text"
+                       x:Name="passwordEntry"
+                   IsPassword="True"
+                   Margin="10"/>
+
+                <!--<ActivityIndicator x:Name="activityindicator"
+                   HorizontalOptions="CenterAndExpand"
+                                   />-->
+                <Button Text="登录" Clicked="Login_Clicked"
+                    Margin="0,50,0,20"
+                    BackgroundColor="Azure"
+                    TextColor="Black"
+                    HorizontalOptions="StartAndExpand"
+                    WidthRequest="600"
+                   />
+                
+                <Button Text="注册"  Clicked="Register_Clicked"
+                    Margin="0"
+                    BackgroundColor="Azure"
+                    TextColor="Black"
+                    HorizontalOptions="StartAndExpand"
+                        WidthRequest="600"
+                    />
+            </StackLayout>
+            
+        </ContentView>
+    </ContentPage.Content>
+   
+    
+</ContentPage>

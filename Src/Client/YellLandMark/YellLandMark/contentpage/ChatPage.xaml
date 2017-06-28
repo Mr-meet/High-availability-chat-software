@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YellLandMark.ChatPage"
+             >
+    <!--Title="{Banding friends}"-->
+    
+    <StackLayout BackgroundColor="Azure">
+        <StackLayout
+            Orientation="Horizontal"
+            VerticalOptions="Start" 
+            HorizontalOptions="FillAndExpand"
+            BackgroundColor="Azure"
+            >
+            <Button Text="Back" BackgroundColor="Salmon" HorizontalOptions="Start" x:Name="backButton" Clicked="backButton_Clicked"/>
+            <Label x:Name="titleLable" TextColor="Salmon" HorizontalOptions="End" VerticalOptions="Center"/>
+            <Button Text="···" HorizontalOptions="EndAndExpand" BackgroundColor="Azure" TextColor="Salmon" WidthRequest="50"/>
+            <!--顶部的模块-->
+        </StackLayout>
+        <!--<StackLayout BackgroundColor="Salmon"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="StartAndExpand">
+            <ListView x:Name="mainList">
+                <Label Text="Cyan 19:21:31" TextColor="Gray"/>
+                <Label Text="Hello Alban!" TextColor="Black" FontSize="20"/>
+                <Label Text="Alban 19:21:31" TextColor="Gray"/>
+                <Label Text="Hello Cyan!" TextColor="Black" FontSize="20"/>
+                <Label Text="Alban 19:21:31" TextColor="Gray"/>
+                <Label Text="Long time no see!" TextColor="Black" FontSize="20"/>
+                <Label Text="Cyan 19:21:31" TextColor="Gray"/>
+                <Label Text="Yes! How are you ? Did you graduate?" TextColor="Black" FontSize="20"/>
+            </ListView>
+            
+            
+        </StackLayout>-->
+        <ListView BackgroundColor="Salmon"
+                  ItemsSource="{Binding Items}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding Detail}" TextColor="Gray"/>
+                            <Label Text="{Binding Text}" TextColor="Black" FontSize="20"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+        <StackLayout VerticalOptions="End" 
+                     HorizontalOptions="StartAndExpand" 
+                     Orientation="Horizontal">
+            
+            <!--字体和其他功能的位置，使用image来做-->
+        </StackLayout>
+        <StackLayout VerticalOptions="End" 
+                     HorizontalOptions="End" 
+                     Orientation="Horizontal"
+                     HeightRequest="50"
+                     Padding="0,0,0,10"
+                     BackgroundColor="Azure">
+            <Entry Keyboard="Text" HorizontalOptions="StartAndExpand" WidthRequest="200" x:Name="sendEntry"/>
+            <Button Text="Send"
+                    HorizontalOptions="EndAndExpand" 
+                    WidthRequest="120" 
+                    HeightRequest="80"
+                    x:Name="sendButton"
+                    Clicked="sendButton_Clicked"
+                    />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

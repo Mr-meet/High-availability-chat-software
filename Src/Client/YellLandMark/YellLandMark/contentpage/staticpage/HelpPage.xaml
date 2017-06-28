@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YellLandMark.HelpPage"
+             Title="Help">
+    <StackLayout>
+        <Label Text="Help" FontSize="Large" TextColor="DarkCyan" VerticalOptions="Start" Margin="20"></Label>
+        <Label HorizontalOptions="StartAndExpand">   
+        If you found any problam you can send email to mrfj@live.cn.
+        Thanks for your useing! 
+        </Label>
+    </StackLayout>
+</ContentPage>

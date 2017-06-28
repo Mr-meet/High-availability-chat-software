@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:task="http://www.springframework.org/schema/task" 
+         xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd
+                      http://www.springframework.org/schema/rabbit
+                http://www.springframework.org/schema/rabbit/spring-rabbit-1.5.xsd
+              http://www.springframework.org/schema/task  
+    http://www.springframework.org/schema/task/spring-task-4.1.xsd ">
+
+    <!-- 这个是一个生产者的信息的配置  -->
+    <!-- 连接服务配置  -->
+    <!--<rabbit:connection-factory id="rabbitProducerConnectionFactory" addresses="115.159.214.197:5672"-->
+    <!--username="Alban" password="fj950602" publisher-confirms="true" virtual-host="/"/>-->
+    <rabbit:connection-factory id="rabbitProducerConnectionFactory" virtual-host="/" port="5672" username="Alban" password="fj950602" host="139.199.35.140"/>
+
+    <rabbit:annotation-driven />
+    <!--bean id="rabbitTemplate"   class="org.springframework.amqp.rabbit.core.RabbitTemplate" >
+        <constructor-arg ref="rabbitProducerConnectionFactory"></constructor-arg>
+        <property name="exchange" value="snmp-collect"></property>
+        <property name="routingKey" value="collector.*"></property>
+    </bean-->
+
+       <!-- 异步的线程池，线程池的最在数不能设定太小，不然<rabbit:listener/>/@RabbitListener太多的话，会出现发无法正常消费问题 -->
+    <task:executor id="taskExecutor" pool-size="4-256" queue-capacity="1024" />
+     <!-- queue litener 观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象 -->  
+
+   <!-- 设置rabbit的管理 -->
+    <rabbit:admin connection-factory="rabbitProducerConnectionFactory"/>
+
+    <!--queue 队列声明-->
+    <rabbit:queue id="USER_SEND_QUEUE" durable="true" auto-delete="false" exclusive="false" name="USER_SEND_QUEUE"/>
+    <rabbit:queue id="USER_RESAVE_QUEUE" durable="true" auto-delete="false" exclusive="false" name="USER_RESAVE_QUEUE"/>
+    <rabbit:queue id="COMMUNITY_PROCESS_QUEUE" durable="true" auto-delete="false" exclusive="false" name="COMMUNITY_PROCESS_QUEUE"/>
+    <!-- 将队列绑定到交换路由同时与key绑定-->
+    <rabbit:direct-exchange name="QUEUE_DIRECT" durable="true" auto-delete="false" id="QUEUE_DIRECT">
+        <rabbit:bindings>
+            <rabbit:binding queue="USER_SEND_QUEUE" />
+            <rabbit:binding queue="USER_RESAVE_QUEUE"/>
+            <rabbit:binding queue="COMMUNITY_PROCESS_QUEUE"/>
+        </rabbit:bindings>
+
+    </rabbit:direct-exchange>
+
+
+
+
+
+
+
+   <!--<rabbit:fanout-exchange name="fanout-exchange" durable="true" auto-delete="false" id="fanout-exchange">
+        <rabbit:bindings>
+
+        </rabbit:bindings>
+    </rabbit:fanout-exchange>-->
+
+    <bean id="jsonMessageConverter" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter" />
+
+    <rabbit:template id="amqpTemplate" connection-factory="rabbitProducerConnectionFactory"
+                     exchange="QUEUE_DIRECT" message-converter="jsonMessageConverter"/>
+
+    <!-- 拒绝请求消息，并回复该请求者的请求被服务端拒绝-->
+<!--
+    <bean id="messageRecoverer" class="com.catv.rabbitmq.utils.ZkRejectAndRplyToRequeueRecoverer">
+        <property name="replyToTemplate" ref="amqpTemplate"/>
+    </bean>
+-->
+
+    <rabbit:queue id="zkcloud.subsystem.dlx.queue" name="zkcloud.subsystem.dlx.queue">
+        <rabbit:queue-arguments>
+            <entry key="x-message-ttl">
+                <value type="java.lang.Long">86400000</value>
+            </entry>
+            <entry key="x-max-length">
+                <value type="java.lang.Long">100</value>
+            </entry>
+        </rabbit:queue-arguments>
+    </rabbit:queue>
+
+   <!-- <bean id="retryInterceptor" class="org.springframework.amqp.rabbit.config.StatelessRetryOperationsInterceptorFactoryBean">
+        <property name="messageRecoverer" ref="messageRecoverer" />
+        <property name="retryOperations" ref="retryTemplate" />
+    </bean>
+-->
+
+   <bean id="retryTemplate" class="org.springframework.retry.support.RetryTemplate">
+        <property name="backOffPolicy">
+            <bean class="org.springframework.retry.backoff.ExponentialBackOffPolicy">
+                <property name="initialInterval" value="1000" />
+                <property name="maxInterval" value="10000" />
+            </bean>
+        </property>
+        <property name="retryPolicy">
+            <bean class="org.springframework.retry.policy.SimpleRetryPolicy">
+                <property name="maxAttempts" value="5" />
+            </bean>
+        </property>
+    </bean>
+
+</beans>

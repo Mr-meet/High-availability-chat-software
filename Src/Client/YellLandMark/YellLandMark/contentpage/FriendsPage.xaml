@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YellLandMark.FriendsPage"
+             xmlns:local="clr-namespace:YellLandMark.img"
+              xmlns:LocalImage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             Title="Friends">
+  <ListView ItemsSource="{Binding ItemsGrouped}"
+            ItemTapped="Handle_ItemTapped"
+            ItemSelected="Handle_ItemSelected"
+            HasUnevenRows="true"
+            GroupShortNameBinding="{Binding Key}"
+            IsGroupingEnabled="true"
+            GroupDisplayBinding="{Binding Key}"
+            IsPullToRefreshEnabled="true"
+            CachingStrategy="RecycleElement"
+            RowHeight="80"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            RefreshCommand="{Binding RefreshDataCommand}"
+           SeparatorColor="Azure">
+    <ListView.Header>
+            
+            <StackLayout Padding="8" 
+                   Orientation="Horizontal"
+                   HorizontalOptions="FillAndExpand"
+                   BackgroundColor="#dadada">
+        <!--<Label Text="Header"
+               HorizontalTextAlignment="Center"
+               HorizontalOptions="FillAndExpand"
+               TextColor="Black"
+               FontAttributes="Bold"/>-->
+                <Entry Keyboard="Text"
+                   x:Name="headEntry" 
+                   HorizontalOptions="StartAndExpand"
+                   Placeholder="type a number or name."/>
+                <Button Text="Add a friend" x:Name="addFriendButton" Clicked="addFriendButton_Clicked"/>
+                <Button Text="Find friends" x:Name="findFriendsButton" Clicked="findFriendsButton_Clicked"/>
+                <Button Text="Add a group" x:Name="addGroupButton " Clicked="addGroupButton_Clicked"/>
+            </StackLayout>
+    </ListView.Header>
+    <!--Built in Cells-->
+    <ListView.ItemTemplate>
+            
+            <DataTemplate>
+                <!--<Image Source="{Binding UserIcon}"/>-->
+                <ViewCell>
+                    <ViewCell.ContextActions>
+                        <MenuItem Text="delete the friend!" Command=""/>
+                        <MenuItem Text="move this friend to" Command=""/>
+                    </ViewCell.ContextActions>
+                    <StackLayout>
+                        <Grid HeightRequest="80" BackgroundColor="Salmon">
+                            
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <LocalImage:CircleImage
+                                Source="{local:ImageResouseExtension YellLandMark.img.MonkeyIcon.png}"
+                                Aspect="AspectFill"
+                                BorderThickness="1"
+                                BorderColor="Cyan"
+                                WidthRequest="150"
+                                Margin="12"
+                                Grid.Column="0"
+                                x:Name="userIconHead">
+                                <!--<LocalImage:CircleImage.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                </LocalImage:CircleImage.GestureRecognizers>-->
+                            </LocalImage:CircleImage>
+                            <StackLayout Grid.Column="1">
+                                <Label 
+                                Text="{Binding Text}"
+                                    FontSize="20"
+                                    Margin="10"
+                               />
+                                <Label Text="{Binding Detail}"
+                                   />
+                            </StackLayout>
+                            
+                        </Grid>
+                        
+                    </StackLayout>
+                    
+                    <!--<TextCell Text="{Binding Text}"
+                  Detail="{Binding Detail}"/>-->
+                </ViewCell>
+                
+            </DataTemplate>
+    </ListView.ItemTemplate>
+    
+    <!--Custom View Cells-->
+    <!--
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <StackLayout>
+            <Label Text="{Binding Text}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+            <Label Text="{Binding Detail}" 
+                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+          </StackLayout>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+    -->
+    <ListView.Footer>
+      <StackLayout Padding="8"
+                   Orientation="Horizontal"
+                   HorizontalOptions="FillAndExpand"
+                   BackgroundColor="#dadada">
+        <Label Text="Nomore friends!" 
+               HorizontalTextAlignment="Center" 
+               HorizontalOptions="FillAndExpand" 
+               TextColor="Black"
+               FontAttributes="Bold"/>
+      </StackLayout>
+    </ListView.Footer>
+  </ListView>
+</ContentPage>
