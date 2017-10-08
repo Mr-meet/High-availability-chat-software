@@ -15,11 +15,11 @@ namespace SocketOnlineServer
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Program start! Time:" + DateTime.Now.ToString());
+            //Console.WriteLine("Program start! Time:" + DateTime.Now.ToString());
             MySqlHelper.openConnection();
             var task = Task.Run(async () => { await SocketServerConnector.openLinsten(); });
             task.Wait();
-            Console.WriteLine("Socket linstener is already start! Time:" + DateTime.Now.ToString());
+            //Console.WriteLine("Socket linstener is already start! Time:" + DateTime.Now.ToString());
             
             var temp = new List<UserMessage>();
             RabbitListener.RabbitmqReceive(ref temp,true,RabbitHelper.reciveQueueName);

@@ -44,7 +44,7 @@ namespace SocketOnlineServer
             };
 
 
-
+            //TODO 这里需要被修改为其他形式并移出此类。
             switch (commandEntity.commandType)
             {
                 case ICommandForMessage.Hello :

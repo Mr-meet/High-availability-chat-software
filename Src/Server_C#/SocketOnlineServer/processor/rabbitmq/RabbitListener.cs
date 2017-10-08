@@ -9,6 +9,9 @@ using static Newtonsoft.Json.JsonConvert;
 
 namespace SocketOnlineServer
 {
+     /**
+     * 这个类应该被修改为非阻塞的，它有可能很大的潜在性能问题。
+     */
     public class RabbitListener
     {
         private RabbitListener() { }
